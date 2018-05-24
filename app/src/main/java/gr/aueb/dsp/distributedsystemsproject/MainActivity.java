@@ -91,18 +91,6 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
 
     }
 
-    private boolean isInt(String num){
-        return num.matches("\\d+");
-    }
-
-    private boolean isPort(String port){
-        return port.matches("\\d{1,5}");
-    }
-
-    private boolean isDouble(String num){
-        return num.matches("\\d+[.,]\\d+");
-    }
-
     private boolean isIpV4(String ip){
         return ip.matches("(\\d{1,3}.){3}\\d{1,3}");
     }
@@ -124,9 +112,9 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         ArrayList<POI> recommendation = result.getRecommendation();
         map = new Intent(getApplicationContext(), MapsActivity.class);
         map.putExtra("ArrayList<POI>", recommendation);
-        map.putExtra("Latitude", lat.getText().toString());
-        map.putExtra("Longitude", lng.getText().toString());
-        map.putExtra("Radius", range.getText().toString());
+        map.putExtra("Latitude", Double.parseDouble(lat.getText().toString()));
+        map.putExtra("Longitude", Double.parseDouble(lng.getText().toString()));
+        map.putExtra("Radius", Double.parseDouble(range.getText().toString()));
         startActivity(map);
     }
 }
