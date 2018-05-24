@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 
 //AsyncTask class, gets the results from the master
-public class Client extends AsyncTask<Object, Void, RetObj>{
+public class Client extends AsyncTask<String, Void, RetObj>{
     public BindActivity bind = null; // Binds the Activity that called the AsyncTask
     private RetObj result; // Result, is the response from master
     private Socket socket = null; // Socket connection
@@ -20,15 +20,15 @@ public class Client extends AsyncTask<Object, Void, RetObj>{
     private String message; // Message from the master why the something failed
 
     @Override
-    protected RetObj doInBackground(Object... objects) {
+    protected RetObj doInBackground(String... objects) {
         // Parses the objects passed from the Activity: User ID, User Latitude, Longitude, Top K recommendations, Range, IP & Port
-        int user_id = (Integer) objects[0];
-        double user_lat = (Double) objects[1];
-        double user_lng = (Double) objects[2];
-        int k = (Integer) objects[3];
-        double range = (Double) objects[4];
-        String ip = (String) objects[5];
-        int port = (Integer) objects[6];
+        int user_id = Integer.parseInt(objects[0]);
+        double user_lat = Double.parseDouble(objects[1]);
+        double user_lng = Double.parseDouble(objects[2]);
+        int k = Integer.parseInt(objects[3]);
+        double range = Double.parseDouble(objects[4]);
+        String ip = objects[5];
+        int port = Integer.parseInt(objects[6]);
         // Connect to server
         try {
             socket = new Socket(ip, port);

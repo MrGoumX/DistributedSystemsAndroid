@@ -9,6 +9,9 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -17,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
 
     private Intent map;
     private RetObj result;
+    private EditText userId, lat, lng, k, range, ip, port;
+    private Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,21 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         actionBar.setTitle("DS Client");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
+
+        userId = findViewById(R.id.textUserId);
+        lat = findViewById(R.id.textLatitude);
+        lng = findViewById(R.id.textLongtitude);
+        k = findViewById(R.id.textK);
+        range = findViewById(R.id.textRange);
+        ip = findViewById(R.id.textIp);
+        port = findViewById(R.id.textPort);
+        submitButton = findViewById(R.id.submitButton);
+
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                recommendation();
+            }
+        });
     }
 
     @Override
@@ -42,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
 
         switch(item.getItemId()){
             case R.id.app:
-                recommendation();
+                startActivity(map);
                 break;
             case R.id.team:
                 startActivity(new Intent(this, TeamActivity.class));
@@ -67,6 +87,8 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         Client client = new Client();
         // Bind Activity
         client.bind = this;
+        client.execute(userId.getText().toString(), lat.getText().toString(), lng.getText().toString(), k.getText().toString(), range.getText().toString(), ip.getText().toString(), port.getText().toString());
+
     }
 
     private boolean isInt(String num){
@@ -102,9 +124,9 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         ArrayList<POI> recommendation = result.getRecommendation();
         map = new Intent(getApplicationContext(), MapsActivity.class);
         map.putExtra("ArrayList<POI>", recommendation);
-        /*map.putExtra("Latitude", lat);
-        map.putExtra("Longitude", lng);
-        map.putExtra("Radius", range);*/
+        map.putExtra("Latitude", lat.getText().toString());
+        map.putExtra("Longitude", lng.getText().toString());
+        map.putExtra("Radius", range.getText().toString());
         startActivity(map);
     }
 }

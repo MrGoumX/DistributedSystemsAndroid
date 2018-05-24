@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class RetObj implements Serializable{
     private Boolean trained, in_bounds; // Booleans: trained, check too see if the matrices are trained, in_bounds, check to see if users are in bounds of the matrix
     private String fail; // Check to see the reason the recommendation failed
-    private ArrayList<POI> recommendation; // Recommendation ArrayList
+    private ArrayList<POI> recommendation; // Recommendation ArrayList to receive.
 
     // Constructor
     public RetObj(Boolean trained, Boolean in_bounds, String fail, ArrayList<POI> recommendation){
