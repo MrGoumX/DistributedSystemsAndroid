@@ -3,11 +3,17 @@ package gr.aueb.dsp.distributedsystemsproject;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends FragmentActivity{
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +25,43 @@ public class MainActivity extends FragmentActivity{
         map.putExtra("Longitude", 23.7302467);
         map.putExtra("Radius", 2.0);
         startActivity(map);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setIcon(R.mipmap.ic_launcher);
+        actionBar.setTitle(" DS client");
+        actionBar.setDisplayUseLogoEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.app:
+                break;
+            case R.id.team:
+                startActivity(new Intent(this, TeamActivity.class));
+                break;
+            default:
+                // refresh.
+                //refresh
+                try{
+                    finish();
+                    startActivity(getIntent());
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Error: refresh failed." + e, Toast.LENGTH_SHORT).show();
+                }
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private boolean isInt(String num){
