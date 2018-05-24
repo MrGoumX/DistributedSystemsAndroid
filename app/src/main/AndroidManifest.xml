@@ -43,7 +43,7 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".TeamActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value="gr.aueb.dsp.distributedsystemsproject.MainActivity" />
         </activity>
     </application>
 
