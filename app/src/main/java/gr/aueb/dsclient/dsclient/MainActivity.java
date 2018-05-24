@@ -1,8 +1,11 @@
 package gr.aueb.dsclient.dsclient;
 
 
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+
+import java.util.ArrayList;
 
 public class MainActivity extends FragmentActivity{
 
@@ -10,7 +13,12 @@ public class MainActivity extends FragmentActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Intent map = new Intent(getApplicationContext(), MapsActivity.class);
+        map.putExtra("ArrayList<POI>", new ArrayList<POI>());
+        map.putExtra("Latitude", 37.9940805);
+        map.putExtra("Longitude", 23.7302467);
+        map.putExtra("Radius", 2.0);
+        startActivity(map);
     }
 
     private boolean isInt(String num){
