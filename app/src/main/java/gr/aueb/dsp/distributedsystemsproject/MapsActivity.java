@@ -1,4 +1,4 @@
-package gr.aueb.dsclient.dsclient;
+package gr.aueb.dsp.distributedsystemsproject;
 
 import android.app.AlertDialog;
 import android.content.Context;

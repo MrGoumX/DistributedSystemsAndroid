@@ -1,4 +1,4 @@
-package gr.aueb.dsclient.dsclient;
+package gr.aueb.dsp.distributedsystemsproject;
 
 /**
  * Created by Konstantinos on 5/24/2018.
