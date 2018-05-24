@@ -51,6 +51,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         lng = (Double) getIntent().getSerializableExtra("Longitude");
         curr_pos = new LatLng(lat, lng);
         radius = (Double) getIntent().getSerializableExtra("Radius");
+        //Multiply radius * 1000 to convert to meters
         radius *= 1000;
     }
 
