@@ -1,40 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primary_light"
-    tools:context="gr.aueb.dsp.distributedsystemsproject.MainActivity">
+    android:orientation="vertical"
+    tools:context="gr.aueb.dsp.distributedsystemsproject.MainActivity"
+    tools:layout_editor_absoluteX="35dp"
+    tools:layout_editor_absoluteY="0dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_margin="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="2dp"
+        android:padding="2dp"
+        android:paddingBottom="2dp"
+        android:paddingEnd="2dp"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:paddingStart="2dp"
+        android:paddingTop="2dp"
+        android:text="Client Information"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="18sp" />
 
-        <TableLayout
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp">
+
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_marginBottom="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="2dp"
+                android:padding="2dp"
+                android:paddingBottom="2dp"
+                android:paddingEnd="2dp"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:paddingStart="2dp"
+                android:paddingTop="2dp"
+                android:text="UserId: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+            <EditText
+                android:id="@+id/textUserId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </TableLayout>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:text="Latitude: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
 
-</android.support.constraint.ConstraintLayout>
+            <EditText
+                android:id="@+id/textLatitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:text="Longitude: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/textLongtitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="numberSigned"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:text="Top K points: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/textK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:text="Range: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/textRange"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:text="IP: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/textIp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="numberDecimal"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:padding="2dp"
+                android:text="Port: "
+                android:textColor="#000000"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/textPort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:ems="10"
+                android:inputType="number"
+                android:padding="2dp"
+                android:textSize="14sp" />
+        </TableRow>
+    </TableLayout>
+</LinearLayout>
+
