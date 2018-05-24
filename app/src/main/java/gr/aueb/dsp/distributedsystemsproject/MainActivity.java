@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements BindActivity{
 
-    Intent map;
-    RetObj result;
+    private Intent map;
+    private RetObj result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +61,12 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    // The method that calls the AsyncTask
     private void recommendation() {
+        // Initiate Client
         Client client = new Client();
+        // Bind Activity
         client.bind = this;
-        client.execute(100, 40.759534, -73.991765, 10, 1.0, "10.0.2.2", 4200);
-        System.out.println("Here");
     }
 
     private boolean isInt(String num){
@@ -84,25 +85,26 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         return ip.matches("(\\d{1,3}.){3}\\d{1,3}");
     }
 
+    // Get the response from the AsyncTask
     @Override
     public void bind(RetObj ret) {
         result = ret;
         System.out.println(result.getRecommendation().toString());
         if(result != null){
+            // If RetObj not null execute
             postExecute();
         }
+        //TODO CREATE ALERT THAT THE CONNECTION TO MASTER FAILED
     }
 
+    // Initiate new Intent to MapActivity
     private void postExecute() {
         ArrayList<POI> recommendation = result.getRecommendation();
-        double lat = 40.759534;
-        double lng = -73.991765;
-        double range = 1.0;
         map = new Intent(getApplicationContext(), MapsActivity.class);
         map.putExtra("ArrayList<POI>", recommendation);
-        map.putExtra("Latitude", lat);
+        /*map.putExtra("Latitude", lat);
         map.putExtra("Longitude", lng);
-        map.putExtra("Radius", range);
+        map.putExtra("Radius", range);*/
         startActivity(map);
     }
 }

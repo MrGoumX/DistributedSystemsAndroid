@@ -98,9 +98,9 @@ public class Client extends AsyncTask<Object, Void, RetObj>{
     // This method handles the return to Activity that called the AsyncTask
     @Override
     protected void onPostExecute(RetObj ret){
-        // If the class is null return null
+        // If the class is log that you are not bound with the Activity
         if(bind==null){
-            Log.e("BindActivity","You do not have access to BindActivity");
+            bind.bind(null);
         }
         // If class not null return the RetObj result
         else{
