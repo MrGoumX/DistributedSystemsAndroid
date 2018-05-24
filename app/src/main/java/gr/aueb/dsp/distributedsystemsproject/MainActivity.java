@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         Client client = new Client();
         client.bind = this;
         client.execute(100, 40.759534, -73.991765, 10, 1.0, "10.0.2.2", 4200);
+        System.out.println("Here");
     }
 
     private boolean isInt(String num){
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
     @Override
     public void bind(RetObj ret) {
         result = ret;
-        System.out.println(result);
+        System.out.println(result.getRecommendation().toString());
         if(result != null){
             postExecute();
         }

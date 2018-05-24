@@ -1,6 +1,7 @@
 package gr.aueb.dsp.distributedsystemsproject;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 
 //AsyncTask class, gets the results from the master
 public class Client extends AsyncTask<Object, Void, RetObj>{
-    public BindActivity bind; // Binds the Activity that called the AsyncTask
+    public BindActivity bind = null; // Binds the Activity that called the AsyncTask
     private RetObj result; // Result, is the response from master
     private Socket socket = null; // Socket connection
     private ObjectOutputStream out = null; // ObjectOutputStream
@@ -99,11 +100,11 @@ public class Client extends AsyncTask<Object, Void, RetObj>{
     protected void onPostExecute(RetObj ret){
         // If the class is null return null
         if(bind==null){
-            ret = null;
+            Log.e("BindActivity","You do not have access to BindActivity");
         }
         // If class not null return the RetObj result
         else{
-            ret = result;
+            bind.bind(result);
         }
     }
 }
