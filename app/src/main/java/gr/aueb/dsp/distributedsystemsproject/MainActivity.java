@@ -13,26 +13,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements BindActivity{
 
     Intent map;
+    RetObj result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        map = new Intent(getApplicationContext(), MapsActivity.class);
-        map.putExtra("ArrayList<POI>", new ArrayList<POI>());
-        map.putExtra("Latitude", 37.9940805);
-        map.putExtra("Longitude", 23.7302467);
-        map.putExtra("Radius", 2.0);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.mipmap.ic_launcher);
-        actionBar.setTitle(" DS client");
+        actionBar.setTitle("DS Client");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-
     }
 
     @Override
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
 
         switch(item.getItemId()){
             case R.id.app:
-                startActivity(map);
+                recommendation();
                 break;
             case R.id.team:
                 startActivity(new Intent(this, TeamActivity.class));
@@ -66,6 +61,12 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    private void recommendation() {
+        Client client = new Client();
+        client.bind = this;
+        client.execute(100, 40.759534, -73.991765, 10, 1.0, "10.0.2.2", 4200);
+    }
+
     private boolean isInt(String num){
         return num.matches("\\d+");
     }
@@ -82,4 +83,25 @@ public class MainActivity extends AppCompatActivity{
         return ip.matches("(\\d{1,3}.){3}\\d{1,3}");
     }
 
+    @Override
+    public void bind(RetObj ret) {
+        result = ret;
+        System.out.println(result);
+        if(result != null){
+            postExecute();
+        }
+    }
+
+    private void postExecute() {
+        ArrayList<POI> recommendation = result.getRecommendation();
+        double lat = 40.759534;
+        double lng = -73.991765;
+        double range = 1.0;
+        map = new Intent(getApplicationContext(), MapsActivity.class);
+        map.putExtra("ArrayList<POI>", recommendation);
+        map.putExtra("Latitude", lat);
+        map.putExtra("Longitude", lng);
+        map.putExtra("Radius", range);
+        startActivity(map);
+    }
 }
