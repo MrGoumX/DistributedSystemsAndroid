@@ -13,26 +13,21 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements BindActivity{
 
-    Intent map;
+    private Intent map;
+    private RetObj result;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        map = new Intent(getApplicationContext(), MapsActivity.class);
-        map.putExtra("ArrayList<POI>", new ArrayList<POI>());
-        map.putExtra("Latitude", 37.9940805);
-        map.putExtra("Longitude", 23.7302467);
-        map.putExtra("Radius", 2.0);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.mipmap.ic_launcher);
-        actionBar.setTitle(" DS client");
+        actionBar.setTitle("DS Client");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-
     }
 
     @Override
@@ -47,7 +42,7 @@ public class MainActivity extends AppCompatActivity{
 
         switch(item.getItemId()){
             case R.id.app:
-                startActivity(map);
+                recommendation();
                 break;
             case R.id.team:
                 startActivity(new Intent(this, TeamActivity.class));
@@ -66,6 +61,14 @@ public class MainActivity extends AppCompatActivity{
         return super.onOptionsItemSelected(item);
     }
 
+    // The method that calls the AsyncTask
+    private void recommendation() {
+        // Initiate Client
+        Client client = new Client();
+        // Bind Activity
+        client.bind = this;
+    }
+
     private boolean isInt(String num){
         return num.matches("\\d+");
     }
@@ -82,4 +85,26 @@ public class MainActivity extends AppCompatActivity{
         return ip.matches("(\\d{1,3}.){3}\\d{1,3}");
     }
 
+    // Get the response from the AsyncTask
+    @Override
+    public void bind(RetObj ret) {
+        result = ret;
+        System.out.println(result.getRecommendation().toString());
+        if(result != null){
+            // If RetObj not null execute
+            postExecute();
+        }
+        //TODO CREATE ALERT THAT THE CONNECTION TO MASTER FAILED
+    }
+
+    // Initiate new Intent to MapActivity
+    private void postExecute() {
+        ArrayList<POI> recommendation = result.getRecommendation();
+        map = new Intent(getApplicationContext(), MapsActivity.class);
+        map.putExtra("ArrayList<POI>", recommendation);
+        /*map.putExtra("Latitude", lat);
+        map.putExtra("Longitude", lng);
+        map.putExtra("Radius", range);*/
+        startActivity(map);
+    }
 }
