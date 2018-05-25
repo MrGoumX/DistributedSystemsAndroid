@@ -38,12 +38,8 @@ public class Client extends AsyncTask<String, Void, RetObj>{
             }
         } catch (IOException e) { // if connection failed, then wait for 2 seconds and try again.
             System.err.println("Server not live");
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e1) {
-                // If not connected then return null object
-                result = null;
-            }
+            result = null;
+            return result;
         }
         synchronized (this){
             // Bind to master
@@ -100,7 +96,7 @@ public class Client extends AsyncTask<String, Void, RetObj>{
     protected void onPostExecute(RetObj ret){
         // If the class is log that you are not bound with the Activity
         if(bind==null){
-            bind.bind(null);
+            Log.e("BindActivity", "No activity bound to this AsyncTask");
         }
         // If class not null return the RetObj result
         else{
