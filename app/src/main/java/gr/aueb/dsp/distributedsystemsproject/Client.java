@@ -6,6 +6,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 
@@ -31,14 +32,15 @@ public class Client extends AsyncTask<String, Void, RetObj>{
         int port = Integer.parseInt(objects[6]);
         // Connect to server
         try {
-            Socket socket = new Socket(ip, port);
+            Socket socket = new Socket();
+            socket.connect(new InetSocketAddress(ip, port), 100);
+            System.out.println("Here");
             if (socket.isConnected()) {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 in = new ObjectInputStream(socket.getInputStream());
             }
         } catch (IOException e) { // if connection failed, then wait for 2 seconds and try again.
             System.err.println("Server not live");
-            result = null;
             return result;
         }
         synchronized (this){
@@ -72,7 +74,7 @@ public class Client extends AsyncTask<String, Void, RetObj>{
             boolean trained = in.readBoolean();
             if (!trained) {
                 // If not return new RetObj that declares that matrices are not trained
-                result = new RetObj(in.readBoolean(), null, (String) in.readObject(), null);
+                result = new RetObj(trained, null, (String) in.readObject(), null);
             } else {
                 // If trained then get if the user given is in bounds
                 Boolean in_bounds = in.readBoolean();

@@ -112,22 +112,34 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
     @Override
     public void bind(RetObj ret) {
         result = ret;
-        System.out.println(result.getRecommendation().toString());
         if(result != null){
             // If RetObj not null execute
             postExecute();
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Error: Master Not Live", Toast.LENGTH_SHORT).show();
         }
     }
 
     // Initiate new Intent to MapActivity
     private void postExecute() {
-        ArrayList<POI> recommendation = result.getRecommendation();
-        map = new Intent(getApplicationContext(), MapsActivity.class);
-        map.putExtra("ArrayList<POI>", recommendation);
-        map.putExtra("Latitude", Double.parseDouble(lat.getText().toString()));
-        map.putExtra("Longitude", Double.parseDouble(lng.getText().toString()));
-        map.putExtra("Radius", Double.parseDouble(range.getText().toString()));
-        startActivity(map);
+        if(result.isTrained()){
+            if(result.isIn_bounds()){
+                ArrayList<POI> recommendation = result.getRecommendation();
+                map = new Intent(getApplicationContext(), MapsActivity.class);
+                map.putExtra("ArrayList<POI>", recommendation);
+                map.putExtra("Latitude", Double.parseDouble(lat.getText().toString()));
+                map.putExtra("Longitude", Double.parseDouble(lng.getText().toString()));
+                map.putExtra("Radius", Double.parseDouble(range.getText().toString()));
+                startActivity(map);
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Error: User given is out of bounds", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Error: Matrices are not trained yet", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

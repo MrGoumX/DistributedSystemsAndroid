@@ -149,7 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 }
                 // If the link exists parse URL and open browser
-                if(link!=null){
+                if(link!=null && !link.equalsIgnoreCase("Not Exists")){
                     Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
                     startActivity(browser);
                 }
