@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
+// TeamActivity prints information about project and developers.
 public class TeamActivity extends AppCompatActivity {
 
 

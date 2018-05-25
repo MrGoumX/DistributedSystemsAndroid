@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
     private Intent map;
     private RetObj result;
     private EditText userId, lat, lng, k, range, ip, port;
-    private Button submitButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         range = findViewById(R.id.textRange);
         ip = findViewById(R.id.textIp);
         port = findViewById(R.id.textPort);
-        submitButton = findViewById(R.id.submitButton);
+        Button submitButton = findViewById(R.id.submitButton);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -90,7 +89,8 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         Client client = new Client();
         // Bind Activity
         client.bind = this;
-        try{
+
+        try{ // makes input validation.
             Integer.parseInt(userId.getText().toString());
             Integer.parseInt(k.getText().toString());
             Integer.parseInt(port.getText().toString());
