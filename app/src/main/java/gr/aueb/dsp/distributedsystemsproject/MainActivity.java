@@ -2,8 +2,6 @@ package gr.aueb.dsp.distributedsystemsproject;
 
 
 import android.content.Intent;
-import android.support.v4.app.FragmentActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setIcon(R.mipmap.ic_launcher);
-        actionBar.setTitle("DS Client");
+        actionBar.setTitle(" DS Client");
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
 
@@ -62,7 +60,12 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
 
         switch(item.getItemId()){
             case R.id.app:
-                startActivity(map);
+                try{
+                    startActivity(map);
+                }catch (Exception e){
+                    Toast.makeText(getApplicationContext(), "Please submit information first and wait for server to response.", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.team:
                 startActivity(new Intent(this, TeamActivity.class));
@@ -87,12 +90,22 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         Client client = new Client();
         // Bind Activity
         client.bind = this;
-        client.execute(userId.getText().toString(), lat.getText().toString(), lng.getText().toString(), k.getText().toString(), range.getText().toString(), ip.getText().toString(), port.getText().toString());
+        try{
+            Integer.parseInt(userId.getText().toString());
+            Integer.parseInt(k.getText().toString());
+            Integer.parseInt(port.getText().toString());
+            Double.parseDouble(lat.getText().toString());
+            Double.parseDouble(lng.getText().toString());
+            Double.parseDouble(range.getText().toString());
+            if(ip.getText().toString().matches("^(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})\\.(\\d{1,3})$")){
+                client.execute(userId.getText().toString(), lat.getText().toString(), lng.getText().toString(), k.getText().toString(), range.getText().toString(), ip.getText().toString(), port.getText().toString());
+            }else{
+                Toast.makeText(getApplicationContext(), "Error: IP's format isn't valid.", Toast.LENGTH_SHORT).show();
+            }
 
-    }
-
-    private boolean isIpV4(String ip){
-        return ip.matches("(\\d{1,3}.){3}\\d{1,3}");
+        }catch (Exception e){
+            Toast.makeText(getApplicationContext(), "Error: An input field is invalid.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // Get the response from the AsyncTask
@@ -104,7 +117,6 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
             // If RetObj not null execute
             postExecute();
         }
-        //TODO CREATE ALERT THAT THE CONNECTION TO MASTER FAILED
     }
 
     // Initiate new Intent to MapActivity
@@ -117,4 +129,6 @@ public class MainActivity extends AppCompatActivity implements BindActivity{
         map.putExtra("Radius", Double.parseDouble(range.getText().toString()));
         startActivity(map);
     }
+
+
 }

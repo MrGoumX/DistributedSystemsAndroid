@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 //AsyncTask class, gets the results from the master
 public class Client extends AsyncTask<String, Void, RetObj>{
-    public BindActivity bind = null; // Binds the Activity that called the AsyncTask
+
+    BindActivity bind = null; // Binds the Activity that called the AsyncTask
     private RetObj result; // Result, is the response from master
-    private Socket socket = null; // Socket connection
     private ObjectOutputStream out = null; // ObjectOutputStream
     private ObjectInputStream in = null; // ObjectInputStream
     private String message; // Message from the master why the something failed
@@ -31,7 +31,7 @@ public class Client extends AsyncTask<String, Void, RetObj>{
         int port = Integer.parseInt(objects[6]);
         // Connect to server
         try {
-            socket = new Socket(ip, port);
+            Socket socket = new Socket(ip, port);
             if (socket.isConnected()) {
                 out = new ObjectOutputStream(socket.getOutputStream());
                 in = new ObjectInputStream(socket.getInputStream());
